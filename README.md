@@ -7,12 +7,12 @@ To run this app locally clone the repository and follow the instructions below.
 
 ### System dependencies
 This app was built on Ruby 2.6.1 and node version 13.10.1. Ruby bundler and
-npm must be installed.
+yarn must be installed.
 
 To install other dependencies run `bundle install` from root and then:
 ```
 cd client
-npm install
+yarn install
 cd ..
 ```
 
