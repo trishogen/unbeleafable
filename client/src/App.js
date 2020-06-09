@@ -4,10 +4,7 @@ import {
   BrowserRouter as Router,
   Link,
   Route,
-  Redirect,
-  Switch,
-  useHistory,
-  useLocation
+  Switch
 } from 'react-router-dom';
 import Login from './components/Login';
 
@@ -21,12 +18,12 @@ function App() {
 
         <Link to="/login">Login</Link>
 
-        <switch>
+        <Switch>
           <Route path="/login">
             <Login />
           </Route>
           <Route exact path="/" render={() => <div>Home</div>} />
-        </switch>
+        </Switch>
       </div>
     </Router>
   );
