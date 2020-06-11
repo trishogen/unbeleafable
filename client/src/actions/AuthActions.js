@@ -11,7 +11,6 @@ export const login = (user) => {
       return resp.json()
     }).then(respJson => {
       dispatch({ type: 'USER_AUTH', jwt: respJson.jwt })
-      console.log(respJson.jwt)
     })
   }
 }
