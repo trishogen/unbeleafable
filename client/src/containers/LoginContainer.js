@@ -16,19 +16,22 @@ class LoginContainer extends Component {
       return <Redirect to='/' />
     }
   }
-  
+
   render() {
     return (
       <div>
         {this.renderRedirect()}
-        <Login handleSubmit={this.handleSubmit}/>
+        <Login
+          handleSubmit={this.handleSubmit}
+          error={this.props.error}
+          errorMessage={this.props.errorMessage}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({redirect}) => {
-  return {redirect}
+const mapStateToProps = ({redirect, error, errorMessage}) => {
+  return {redirect, error, errorMessage}
 }
 
 const mapDispatchToProps = dispatch => ({

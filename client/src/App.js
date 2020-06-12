@@ -7,6 +7,7 @@ import {
   Switch
 } from 'react-router-dom';
 import LoginContainer from './containers/LoginContainer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <div className="App">
         <header className="App-header">
         </header>
-
+        // move these to a navbar
         <Link to="/login">Login</Link>
 
         <Switch>

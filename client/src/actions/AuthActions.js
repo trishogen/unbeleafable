@@ -8,9 +8,23 @@ export const login = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => {
-      return resp.json()
-    }).then(respJson => {
-      dispatch({ type: 'USER_AUTH', jwt: respJson.jwt })
-    })
+      if (resp.ok) {
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'USER_AUTH', jwt: respJson.jwt });
+        })
+      } else {
+          resp.json()
+          .then(respJson => {
+            dispatch({ type: 'AUTH_ERROR', message: respJson.message });
+          })
+        }
+      })
+  }
+}
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch({ type: 'LOGOUT' });
   }
 }
