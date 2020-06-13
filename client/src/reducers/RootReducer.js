@@ -1,5 +1,5 @@
 const rootReducer = (
-  state = { jwt: '', redirect: false, error: false, errorMessage: ''},
+  state = { jwt: '', loggedIn:false, redirect: false, error: false, errorMessage: ''},
   action
 ) => {
   switch(action.type) {
@@ -7,6 +7,7 @@ const rootReducer = (
       return {
         ...state,
         jwt: action.jwt,
+        loggedIn: true,
         redirect: true,
         error: false, // reset in case of previous failed attempts
         errorMessage: ''
@@ -18,7 +19,7 @@ const rootReducer = (
           errorMessage: action.message
         }
     case 'LOGOUT':
-      return { jwt: '', redirect: true }
+      return { ...state, jwt: '', loggedIn: false, redirect: false }
     default:
       return state;
   }

@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Switch
 } from 'react-router-dom';
 import LoginContainer from './containers/LoginContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBarContainer from './containers/navBarContainer';
 
 
 function App() {
@@ -16,9 +16,7 @@ function App() {
       <div className="App">
         <header className="App-header">
         </header>
-        // move these to a navbar
-        <Link to="/login">Login</Link>
-
+        <NavBarContainer />
         <Switch>
           <Route path="/login">
             <LoginContainer />
