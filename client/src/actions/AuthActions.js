@@ -11,7 +11,8 @@ export const login = (user) => {
       if (resp.ok) {
         resp.json()
         .then(respJson => {
-          dispatch({ type: 'USER_AUTH', jwt: respJson.jwt });
+          localStorage.setItem("token", respJson.jwt)
+          dispatch({ type: 'USER_AUTH'});
         })
       } else {
           resp.json()
@@ -23,8 +24,16 @@ export const login = (user) => {
   }
 }
 
+export const setLoggedIn = () => {
+  // sets loggedIn to true in store
+  return (dispatch) => {
+    if (localStorage.token) dispatch({ type: 'USER_AUTH' });
+  }
+}
+
 export const logout = () => {
   return (dispatch) => {
+    localStorage.removeItem("token");
     dispatch({ type: 'LOGOUT' });
   }
 }
