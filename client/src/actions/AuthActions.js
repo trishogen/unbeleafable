@@ -15,12 +15,38 @@ export const login = (user) => {
           dispatch({ type: 'USER_AUTH'});
         })
       } else {
-          resp.json()
-          .then(respJson => {
-            dispatch({ type: 'AUTH_ERROR', message: respJson.message });
-          })
-        }
-      })
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'AUTH_ERROR', message: respJson.error });
+        })
+      }
+    })
+  }
+}
+
+export const signup = (user) => {
+  return (dispatch) => {
+    fetch('http://localhost:3000/api/v1/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+    .then(resp => {
+      if (resp.ok) {
+        resp.json()
+        .then(respJson => {
+          localStorage.setItem("token", respJson.jwt);
+          dispatch({ type: 'USER_AUTH'});
+        })
+      } else {
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'AUTH_ERROR', message: respJson.error });
+        })
+      }
+    })
   }
 }
 

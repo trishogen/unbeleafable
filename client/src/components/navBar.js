@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = ({ loggedIn, logout }) => {
 
-  const renderLoginOrLogout = () => {
+  const renderAuthButtons = () => {
     if (loggedIn) {
       return (
         <Button variant="outline-secondary" size="sm" onClick={logout}>
@@ -13,16 +13,21 @@ const NavBar = ({ loggedIn, logout }) => {
       )
     } else {
       return (
-        <Link to="/login">
-          <Button variant="outline-secondary" size="sm">Log in</Button>
-        </Link>
+        <div>
+          <Link to="/login">
+            <Button variant="outline-secondary" size="sm">Log in</Button>
+          </Link>
+          <Link to="/signup">
+            <Button variant="outline-secondary" size="sm">Sign up</Button>
+          </Link>
+        </div>
       )
     }
   }
 
   return (
     <div>
-      {renderLoginOrLogout()}
+      {renderAuthButtons()}
     </div>
   );
 };
