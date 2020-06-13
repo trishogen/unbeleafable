@@ -1,5 +1,5 @@
 const rootReducer = (
-  state = { loggedIn:false, redirect: false, error: false, errorMessage: ''},
+  state = { loggedIn: false, redirect: false, error: false, errorMessage: ''},
   action
 ) => {
   switch(action.type) {
@@ -11,6 +11,11 @@ const rootReducer = (
         error: false, // reset in case of previous failed attempts
         errorMessage: ''
       }
+      case 'USER_RETURN':
+        return {
+          ...state,
+          loggedIn: true
+        }
       case 'AUTH_ERROR':
         return {
           ...state,

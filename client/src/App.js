@@ -9,7 +9,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { setLoggedIn } from './actions/AuthActions';
 import LoginContainer from './containers/LoginContainer';
-import NavBarContainer from './containers/navBarContainer';
+import NavBarContainer from './containers/NavBarContainer';
 
 
 class App extends Component {

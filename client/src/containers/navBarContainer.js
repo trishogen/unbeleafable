@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { logout } from '../actions/AuthActions'
-import NavBar from '../components/navBar';
+import NavBar from '../components/NavBar';
 
 class NavBarContainer extends Component {
 
