@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       post '/signup', to: 'users#create'
       post '/login', to: 'auth#create'
+
+      resources :groups, only: [:index]
     end
   end
 
