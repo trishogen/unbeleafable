@@ -11,7 +11,7 @@ export const fetchGroups = () => {
       if (resp.ok) {
         resp.json()
         .then(respJson => {
-          dispatch({ type: 'GET_GROUPS', groups: respJson.groups});
+          dispatch({ type: 'GET_GROUPS', groups: respJson });
         })
       } else {
         resp.json()

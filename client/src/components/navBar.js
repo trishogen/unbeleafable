@@ -7,9 +7,12 @@ const NavBar = ({ loggedIn, logout }) => {
   const renderAuthButtons = () => {
     if (loggedIn) {
       return (
-        <Button variant="outline-secondary" size="sm" onClick={logout}>
-          Log out
-        </Button>
+        <div>
+          <Link to="/">Home</Link> |  <Link to="/groups">Groups</Link>
+          <Button variant="outline-secondary" size="sm" onClick={logout}>
+            Log out
+          </Button>
+        </div>
       )
     } else {
       return (

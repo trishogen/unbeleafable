@@ -1,10 +1,11 @@
 const groupsReducer = (
-  state = []},
+  state = [],
   action
 ) => {
   switch(action.type) {
     case 'GET_GROUPS':
-      return [...state, action.groups]
+      console.log(action.groups);
+      return action.groups
     default:
       return state;
   }

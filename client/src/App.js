@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { setLoggedIn } from './actions/AuthActions';
+import GroupsContainer from './containers/GroupsContainer';
 import LoginContainer from './containers/LoginContainer';
 import NavBarContainer from './containers/NavBarContainer';
 import SignupContainer from './containers/SignupContainer';
@@ -32,6 +33,9 @@ class App extends Component {
             </Route>
             <Route path="/signup">
               <SignupContainer />
+            </Route>
+            <Route path="/groups">
+              <GroupsContainer />
             </Route>
             <Route exact path="/" render={() => <div>Home</div>} />
           </Switch>
