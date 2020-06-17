@@ -30,7 +30,7 @@ class SignupContainer extends Component {
   }
 }
 
-const mapStateToProps = ({redirect, error, errorMessage}) => {
+const mapStateToProps = ({auth: {redirect, error, errorMessage}}) => {
   return {redirect, error, errorMessage}
 }
 

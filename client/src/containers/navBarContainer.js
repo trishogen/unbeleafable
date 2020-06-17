@@ -14,7 +14,7 @@ class NavBarContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ loggedIn }) => {
+const mapStateToProps = ({auth: { loggedIn }}) => {
   return { loggedIn }
 }
 
