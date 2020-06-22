@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NavBar = ({ name, description }) => {
+const Group = ({ name, description }) => {
 
   return (
     <div>
@@ -10,4 +10,4 @@ const NavBar = ({ name, description }) => {
   );
 };
 
-export default NavBar;
+export default Group;

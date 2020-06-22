@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { fetchGroups } from '../actions/GroupsActions'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { fetchGroups, createNewGroup } from '../actions/GroupsActions';
 import Group from '../components/Group';
+import GroupRoutes from '../components/GroupRoutes';
+
 
 class GroupsContainer extends Component {
 
@@ -9,26 +12,31 @@ class GroupsContainer extends Component {
     this.props.fetchGroups()
   }
 
-  render() {
-    const groups = this.props.groups.map(g => (
-      <Group key={g.id} name={g.name} description={g.description} />)
-    );
+  handleSubmitNewGroup = (e, group) => {
+    e.preventDefault();
+    this.props.createNewGroup(group);
+  }
 
+  render() {
     return (
       <div>
-      <h1> Groups </h1>
-      {groups}
+        <GroupRoutes
+          groupArr={this.props.groups}
+          onSubmit={this.handleSubmitNewGroup}
+          error={this.props.error}
+          errorMessage={this.props.errorMessage}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ groups }) => {
-  return { groups }
+const mapStateToProps = ({ groups: { groups, error, errorMessage } }) => {
+  return { groups, error, errorMessage}
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchGroups: () => dispatch(fetchGroups())
+  fetchGroups: () => dispatch(fetchGroups()),
+  createNewGroup: group => dispatch(createNewGroup(group))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer)

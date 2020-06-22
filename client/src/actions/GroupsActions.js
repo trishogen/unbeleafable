@@ -22,3 +22,30 @@ export const fetchGroups = () => {
     })
   }
 }
+
+
+export const createNewGroup = (group) => {
+  return (dispatch) => {
+    fetch('http://localhost:3000/api/v1/groups', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify(group)
+    })
+    .then(resp => {
+      if (resp.ok) {
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'CREATE_GROUP', group: respJson });
+        })
+      } else {
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'GROUPS_ERROR', message: respJson.error });
+        })
+      }
+    })
+  }
+}

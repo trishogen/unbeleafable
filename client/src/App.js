@@ -28,16 +28,10 @@ class App extends Component {
           </header>
           <NavBarContainer />
           <Switch>
-            <Route path="/login">
-              <LoginContainer />
-            </Route>
-            <Route path="/signup">
-              <SignupContainer />
-            </Route>
-            <Route path="/groups">
-              <GroupsContainer />
-            </Route>
-            <Route exact path="/" render={() => <div>Home</div>} />
+            <Route exact path="/" render={() => <div>Home</div>}></Route>
+            <Route path="/login"><LoginContainer /></Route>
+            <Route path="/signup"><SignupContainer /></Route>
+            <Route path="/groups"><GroupsContainer /></Route>
           </Switch>
         </div>
       </Router>
