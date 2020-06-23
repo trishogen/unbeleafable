@@ -49,3 +49,26 @@ export const createNewGroup = (group) => {
     })
   }
 }
+
+
+export const deleteGroup = (groupId) => {
+  return (dispatch) => {
+    fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`
+      },
+      body: {}
+    })
+    .then(resp => {
+      if (resp.ok) {
+        dispatch({ type: 'DELETE_GROUP', groupId: groupId });
+      } else {
+        resp.json()
+        .then(respJson => {
+          dispatch({ type: 'GROUPS_ERROR', message: respJson.error });
+        })
+      }
+    })
+  }
+}

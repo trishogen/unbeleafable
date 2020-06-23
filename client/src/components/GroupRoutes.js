@@ -10,14 +10,20 @@ import Group from './Group';
 import GroupInput from './GroupInput';
 
 
-const GroupRoutes = ({ groupArr, onSubmit, error, errorMessage }) => {
+const GroupRoutes = ({ groupArr, onSubmit, error, errorMessage, onDelete}) => {
   // The `path` lets us build <Route> paths that are
   // relative to the parent route, while the `url` lets
   // us build relative links.
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   const groups = groupArr.map(g => (
-    <Group key={g.id} name={g.name} description={g.description} />)
+    <Group
+      key={g.id}
+      id={g.id}
+      name={g.name}
+      description={g.description}
+      onDelete={onDelete}></Group>
+    )
   );
 
   return (

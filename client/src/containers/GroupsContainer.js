@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
-import { fetchGroups, createNewGroup } from '../actions/GroupsActions';
-import Group from '../components/Group';
+import { 
+  fetchGroups,
+  createNewGroup,
+  deleteGroup
+} from '../actions/GroupsActions';
 import GroupRoutes from '../components/GroupRoutes';
 
 
@@ -24,7 +26,8 @@ class GroupsContainer extends Component {
           groupArr={this.props.groups}
           onSubmit={this.handleSubmitNewGroup}
           error={this.props.error}
-          errorMessage={this.props.errorMessage}/>
+          errorMessage={this.props.errorMessage}
+          onDelete={this.props.onDelete}/>
       </div>
     );
   }
@@ -36,7 +39,8 @@ const mapStateToProps = ({ groups: { groups, error, errorMessage } }) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchGroups: () => dispatch(fetchGroups()),
-  createNewGroup: group => dispatch(createNewGroup(group))
+  createNewGroup: group => dispatch(createNewGroup(group)),
+  onDelete: groupId => dispatch(deleteGroup(groupId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer)
