@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { logout } from '../actions/AuthActions'
 import NavBar from '../components/NavBar';
 
+
 class NavBarContainer extends Component {
 
   render() {
@@ -19,7 +20,7 @@ const mapStateToProps = ({auth: { loggedIn }}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  logout: user => dispatch(logout())
+  logout: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBarContainer)

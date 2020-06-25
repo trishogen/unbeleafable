@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-const Signup = ({ handleSubmit, error, errorMessage}) => {
+const Signup = ({ handleSubmit, errorMessage}) => {
   // set state in a functional component
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const user = () => {return ({
+  const user = () => ({
     user: {
       username: username,
       password: password,
       password_confirmation: passwordConfirmation
     }
   })
-}
 
   const renderError = () => {
-    if (error) {
+    if (errorMessage) {
       return <Alert variant="danger">{errorMessage}</Alert>
     }
   }

@@ -1,54 +1,62 @@
 export const login = (user) => {
   return (dispatch) => {
-    fetch('http://localhost:3000/api/v1/login', {
-      method: "POST",
+    return fetch('http://localhost:3000/api/v1/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(user)
     })
-    .then(resp => {
-      if (resp.ok) {
-        resp.json()
-        .then(respJson => {
-          localStorage.setItem("token", respJson.jwt);
-          dispatch({ type: 'USER_AUTH'});
-        })
+    .then(resp =>
+      (resp.json()).then(json => ({
+        status: resp.status,
+        json
+      })
+    ))
+    .then( ({status, json}) => {
+      if (status >= 400) {
+        throw new Error(json.error);
       } else {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'AUTH_ERROR', message: respJson.error });
-        })
+        localStorage.setItem('token', json.jwt);
+        return dispatch({ type: 'USER_AUTH'});
       }
+    })
+    .catch(error => {
+      dispatch({ type: 'AUTH_ERROR', message: error.message });
     })
   }
 }
 
+
 export const signup = (user) => {
   return (dispatch) => {
-    fetch('http://localhost:3000/api/v1/signup', {
+    return fetch('http://localhost:3000/api/v1/signup', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
     })
-    .then(resp => {
-      if (resp.ok) {
-        resp.json()
-        .then(respJson => {
-          localStorage.setItem("token", respJson.jwt);
-          dispatch({ type: 'USER_AUTH'});
-        })
+    .then(resp =>
+      (resp.json()).then(json => ({
+        status: resp.status,
+        json
+      })
+    ))
+    .then( ({status, json}) => {
+      if (status >= 400) {
+        throw new Error(json.error);
       } else {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'AUTH_ERROR', message: respJson.error });
-        })
+        localStorage.setItem('token', json.jwt);
+        return dispatch({ type: 'USER_AUTH'});
       }
+    })
+    .catch(error => {
+      dispatch({ type: 'AUTH_ERROR', message: error.message });
     })
   }
 }
+
 
 export const setLoggedIn = () => {
   // sets loggedIn to true in store
@@ -56,6 +64,7 @@ export const setLoggedIn = () => {
     if (localStorage.token) dispatch({ type: 'USER_RETURN' });
   }
 }
+
 
 export const logout = () => {
   return (dispatch) => {

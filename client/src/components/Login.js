@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 
-const Login = ({ handleSubmit, error, errorMessage}) => {
+const Login = ({ handleSubmit, errorMessage}) => {
   // set state in a functional component
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +10,7 @@ const Login = ({ handleSubmit, error, errorMessage}) => {
   const user = () => {return {user: {username: username, password: password}}}
 
   const renderError = () => {
-    if (error) {
+    if (errorMessage) {
       return <Alert variant="danger">{errorMessage}</Alert>
     }
   }

@@ -1,5 +1,5 @@
 const authReducer = (
-  state = { loggedIn: false, redirect: false, error: false, errorMessage: ''},
+  state = { loggedIn: false, errorMessage: ''},
   action
 ) => {
   switch(action.type) {
@@ -7,9 +7,7 @@ const authReducer = (
       return {
         ...state,
         loggedIn: true,
-        redirect: true,
-        error: false, // reset in case of previous failed attempts
-        errorMessage: ''
+        errorMessage: '' // reset in case of previous failed attempts
       }
       case 'USER_RETURN':
         return {
@@ -19,11 +17,10 @@ const authReducer = (
       case 'AUTH_ERROR':
         return {
           ...state,
-          error: true,
           errorMessage: action.message
         }
     case 'LOGOUT':
-      return { ...state, loggedIn: false, redirect: false }
+      return { ...state, loggedIn: false }
     default:
       return state;
   }
