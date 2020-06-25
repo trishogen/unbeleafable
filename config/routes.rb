@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:create]
       post '/signup', to: 'users#create'
-      post '/login', to: 'auth#create'
+      post '/login', to: 'session#create'
 
       resources :groups, only: [:index, :create, :destroy]
     end
