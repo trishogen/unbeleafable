@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
+  Router,
   Route,
   Switch
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import history from './history';
 import { setLoggedIn } from './actions/AuthActions';
 import GroupsContainer from './containers/GroupsContainer';
 import LoginContainer from './containers/LoginContainer';
@@ -22,13 +23,13 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div className="App">
           <header className="App-header">
           </header>
           <NavBarContainer />
           <Switch>
-            <Route exact path="/" render={() => <div>Home</div>}></Route>
+            <Route exact path="/">Home</Route>
             <Route path="/login"><LoginContainer /></Route>
             <Route path="/signup"><SignupContainer /></Route>
             <Route path="/groups"><GroupsContainer /></Route>
