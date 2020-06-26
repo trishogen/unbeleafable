@@ -29,7 +29,7 @@ export const fetchGroups = () => {
 
 export const createNewGroup = (group) => {
   return (dispatch) => {
-    fetch('http://localhost:3000/api/v1/groups', {
+    return fetch('http://localhost:3000/api/v1/groups', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const createNewGroup = (group) => {
       if (status >= 400) {
         throw new Error(json.error);
       } else {
-        dispatch({ type: 'CREATE_GROUP', group: json });
+        return dispatch({ type: 'CREATE_GROUP', group: json });
       }
     })
     .catch(error => {

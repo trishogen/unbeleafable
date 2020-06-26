@@ -6,6 +6,7 @@ import {
   deleteGroup
 } from '../actions/GroupsActions';
 import GroupRoutes from '../components/GroupRoutes';
+import History from '../history'
 
 
 class GroupsContainer extends Component {
@@ -14,9 +15,10 @@ class GroupsContainer extends Component {
     this.props.fetchGroups()
   }
 
-  handleSubmitNewGroup = (e, group) => {
+  handleSubmitNewGroup = async (e, group) => {
     e.preventDefault();
-    this.props.createNewGroup(group);
+    const result = await this.props.createNewGroup(group);
+    if (result) History.push('/groups');
   }
 
   render() {
