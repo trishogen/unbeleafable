@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 
-const GroupInput = ({ onSubmit, error, errorMessage }) => {
+const GroupInput = ({ onSubmit, errorMessage }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const group = () => {return {group: {name: name, description: description}}}
 
   const renderError = () => {
-    if (error) {
+    if (errorMessage) {
       return <Alert variant="danger">{errorMessage}</Alert>
     }
   }

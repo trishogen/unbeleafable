@@ -7,18 +7,21 @@ export const fetchGroups = () => {
         "Authorization": `Bearer ${localStorage.token}`
       }
     })
-    .then(resp => {
-      if (resp.ok) {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'GET_GROUPS', groups: respJson });
-        })
+    .then(resp =>
+      (resp.json()).then(json => ({
+        status: resp.status,
+        json
+      })
+    ))
+    .then( ({status, json}) => {
+      if (status >= 400) {
+        throw new Error(json.error);
       } else {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'GROUPS_ERROR', message: respJson.error });
-        })
+        dispatch({ type: 'GET_GROUPS', groups: json });
       }
+    })
+    .catch(error => {
+      dispatch({ type: 'GROUPS_ERROR', message: error.message });
     })
   }
 }
@@ -34,18 +37,21 @@ export const createNewGroup = (group) => {
       },
       body: JSON.stringify(group)
     })
-    .then(resp => {
-      if (resp.ok) {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'CREATE_GROUP', group: respJson });
-        })
+    .then(resp =>
+      (resp.json()).then(json => ({
+        status: resp.status,
+        json
+      })
+    ))
+    .then( ({status, json}) => {
+      if (status >= 400) {
+        throw new Error(json.error);
       } else {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'GROUPS_ERROR', message: respJson.error });
-        })
+        dispatch({ type: 'CREATE_GROUP', group: json });
       }
+    })
+    .catch(error => {
+      dispatch({ type: 'GROUPS_ERROR', message: error.message });
     })
   }
 }
@@ -53,22 +59,23 @@ export const createNewGroup = (group) => {
 
 export const deleteGroup = (groupId) => {
   return (dispatch) => {
-    fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
+    return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${localStorage.token}`
-      },
-      body: {}
-    })
-    .then(resp => {
-      if (resp.ok) {
-        dispatch({ type: 'DELETE_GROUP', groupId: groupId });
-      } else {
-        resp.json()
-        .then(respJson => {
-          dispatch({ type: 'GROUPS_ERROR', message: respJson.error });
-        })
       }
+    })
+    .then(resp =>  {
+      if (resp.status >= 400) {
+        // convert to json here, because if there's no error it returns no content
+        throw new Error(resp.json().error);
+      } else {
+        dispatch({ type: 'DELETE_GROUP', groupId: groupId })
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch({ type: 'GROUPS_ERROR', message: error.message });
     })
   }
 }

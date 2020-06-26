@@ -10,7 +10,7 @@ import Groups from '../components/Groups';
 import GroupInput from './GroupInput';
 
 
-const GroupRoutes = ({ onSubmit, error, errorMessage, groupArr, onDelete }) => {
+const GroupRoutes = ({ groupArr, onSubmit, onDelete, errorMessage }) => {
   // The `path` lets us build <Route> paths that are
   // relative to the parent route, while the `url` lets
   // us build relative links.
@@ -28,7 +28,7 @@ const GroupRoutes = ({ onSubmit, error, errorMessage, groupArr, onDelete }) => {
             onDelete={onDelete}/>
         </Route>
         <Route path={`${path}/:new`}>
-          <GroupInput onSubmit={onSubmit} error={error} errorMessage={errorMessage}/>
+          <GroupInput onSubmit={onSubmit} errorMessage={errorMessage}/>
         </Route>
       </Switch>
     </div>

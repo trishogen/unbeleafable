@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { 
+import {
   fetchGroups,
   createNewGroup,
   deleteGroup
@@ -25,7 +25,6 @@ class GroupsContainer extends Component {
         <GroupRoutes
           groupArr={this.props.groups}
           onSubmit={this.handleSubmitNewGroup}
-          error={this.props.error}
           errorMessage={this.props.errorMessage}
           onDelete={this.props.onDelete}/>
       </div>
@@ -33,8 +32,8 @@ class GroupsContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ groups: { groups, error, errorMessage } }) => {
-  return { groups, error, errorMessage}
+const mapStateToProps = ({ groups: { groups, errorMessage } }) => {
+  return { groups, errorMessage}
 }
 
 const mapDispatchToProps = dispatch => ({
