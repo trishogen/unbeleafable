@@ -13,6 +13,7 @@ import GroupsContainer from './containers/GroupsContainer';
 import LoginContainer from './containers/LoginContainer';
 import NavBarContainer from './containers/NavBarContainer';
 import SignupContainer from './containers/SignupContainer';
+import ProtectedRoute from './ProtectedRoute';
 
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
             <Route exact path="/">Home</Route>
             <Route path="/login" component={LoginContainer}></Route>
             <Route path="/signup" component={SignupContainer}></Route>
-            <Route path="/groups" component={GroupsContainer}></Route>
+            <ProtectedRoute path="/groups" component={GroupsContainer} />
           </Switch>
         </div>
       </Router>
