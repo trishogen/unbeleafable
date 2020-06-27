@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import {
   fetchGroups,
   createNewGroup,
   deleteGroup
 } from '../actions/GroupsActions';
-import GroupRoutes from '../components/GroupRoutes';
+import Groups from '../components/Groups';
+import GroupInput from '../components/GroupInput';
 import History from '../history'
 
 
@@ -24,13 +26,16 @@ class GroupsContainer extends Component {
   render() {
     return (
       <div>
-        <GroupRoutes
-          groupArr={this.props.groups}
-          onSubmit={this.handleSubmitNewGroup}
-          errorMessage={this.props.errorMessage}
-          onDelete={this.props.onDelete}/>
+        <Route exact path={`${this.props.match.path}/`} render={(props) => (
+            <Groups {...props} groupArr={this.props.groups}
+              onDelete={this.props.onDelete}/>
+          )} />
+        <Route path={`${this.props.match.path}/new`} render={(props) => (
+            <GroupInput {...props} onSubmit={this.handleSubmitNewGroup}
+              errorMessage={this.props.errorMessage}/>
+          )} />
       </div>
-    );
+    )
   }
 }
 
