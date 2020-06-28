@@ -6,7 +6,8 @@ class GroupSerializer
 
   def to_serialized_json
     options = {
-      except: [:updated_at, :created_at],
+      :group => {except: [:updated_at, :created_at]},
+      :user => {:only => [:id]},
     }
     @group.to_json(options)
   end

@@ -18,6 +18,7 @@ export const login = (user) => {
         throw new Error(json.error);
       } else {
         localStorage.setItem('token', json.jwt);
+        localStorage.setItem('userId', json.user.user.id);
         return dispatch({ type: 'USER_AUTH'});
       }
     })
@@ -48,6 +49,7 @@ export const signup = (user) => {
         throw new Error(json.error);
       } else {
         localStorage.setItem('token', json.jwt);
+        localStorage.setItem('userId', json.user.user.id);
         return dispatch({ type: 'USER_AUTH'});
       }
     })
@@ -68,7 +70,8 @@ export const setLoggedIn = () => {
 
 export const logout = () => {
   return (dispatch) => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     dispatch({ type: 'LOGOUT' });
   }
 }

@@ -12,6 +12,7 @@ const Groups = ({ groupArr, onDelete }) => {
       id={g.id}
       name={g.name}
       description={g.description}
+      userId={g.user_id}
       onDelete={onDelete}>
     </Group>
     )
