@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Alert from 'react-bootstrap/Alert';
+import { useParams } from 'react-router-dom';
 
 
-const GroupInput = ({ onSubmit, errorMessage }) => {
+const GroupEdit = ({ match, fetchGroup, onEdit, errorMessage }) => {
+
+  const { id } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  const group = () => {return {name: name, description: description}}
+  useEffect( () => {
+    // similar to componentDidMount, will fetch data with first render
+    const fetchData = async () => {
+      const result = await fetchGroup(id);
+
+      setName(result.name);
+      setDescription(result.description);
+    };
+
+    fetchData();
+  }, [fetchGroup, id]);
+
+  let group = {id: id, name: name, description: description}
 
   const renderError = () => {
     if (errorMessage) {
@@ -16,7 +31,7 @@ const GroupInput = ({ onSubmit, errorMessage }) => {
 
   return (
     <div>
-      <h1>New Group</h1>
+      <h1>Edit Group</h1>
       {renderError()}
       <form>
         Name:
@@ -35,11 +50,11 @@ const GroupInput = ({ onSubmit, errorMessage }) => {
         <br />
         <input
           type="submit"
-          value="Create"
-          onClick={e => onSubmit(e, group())}/>
+          value="Save"
+          onClick={e => onEdit(e, group)}/>
       </form>
     </div>
   );
 };
 
-export default GroupInput;
+export default GroupEdit;

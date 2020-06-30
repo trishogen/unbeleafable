@@ -6,6 +6,16 @@ class Api::V1::GroupsController < ApplicationController
     render json: GroupSerializer.new(groups).to_serialized_json
   end
 
+  def show
+    group = Group.find(params[:id])
+
+    if group
+      render json: GroupSerializer.new(group).to_serialized_json, status: :ok
+    else
+      render json: { error: "Can't find this group" }, status: :not_found
+    end
+  end
+
   def create
     group = current_user.groups.build(group_params)
 
@@ -16,9 +26,20 @@ class Api::V1::GroupsController < ApplicationController
     end
   end
 
+  def update
+    group = Group.find(params[:id])
+
+    if current_user == group.user
+      group.update(group_params)
+      render json: GroupSerializer.new(group).to_serialized_json, status: :ok
+    else
+      render json: { error: "Can't edit this group" }, status: :not_acceptable
+    end
+  end
+
   def destroy
     group = Group.find(params[:id])
-    
+
     if current_user == group.user
       group.destroy
       render json: {}, status: :no_content

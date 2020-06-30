@@ -26,6 +26,18 @@ export const fetchGroups = () => {
   }
 }
 
+export const fetchGroup = (groupId) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.token}`
+      }
+    })
+    .then(resp => (resp.json()))
+  }
+}
 
 export const createNewGroup = (group) => {
   return (dispatch) => {
@@ -57,6 +69,36 @@ export const createNewGroup = (group) => {
 }
 
 
+export const editGroup = (group) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/api/v1/groups/${group.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify(group)
+    })
+    .then(resp =>
+      (resp.json()).then(json => ({
+        status: resp.status,
+        json
+      })
+    ))
+    .then( ({status, json}) => {
+      if (status >= 400) {
+        throw new Error(json.error);
+      } else {
+        return dispatch({ type: 'EDIT_GROUP', group: json });
+      }
+    })
+    .catch(error => {
+      dispatch({ type: 'GROUPS_ERROR', message: error.message });
+    })
+  }
+}
+
+
 export const deleteGroup = (groupId) => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
@@ -74,7 +116,6 @@ export const deleteGroup = (groupId) => {
       }
     })
     .catch(error => {
-      console.log(error);
       dispatch({ type: 'GROUPS_ERROR', message: error.message });
     })
   }
