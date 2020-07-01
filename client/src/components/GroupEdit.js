@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { useParams } from 'react-router-dom';
+import History from '../history'
 
 
-const GroupEdit = ({ match, fetchGroup, onEdit, errorMessage }) => {
+const GroupEdit = ({ match, fetchGroup, onEdit }) => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState('');
 
   useEffect( () => {
     // similar to componentDidMount, will fetch data with first render
@@ -23,9 +25,16 @@ const GroupEdit = ({ match, fetchGroup, onEdit, errorMessage }) => {
 
   let group = {id: id, name: name, description: description}
 
+  const handleEditGroup = async (e, group) => {
+    e.preventDefault();
+    const result = await onEdit(group);
+    // redirect if no error, otherwise set error
+    (!result.error) ? History.push('/groups') : setError(result.error)
+  }
+
   const renderError = () => {
-    if (errorMessage) {
-      return <Alert variant="danger">{errorMessage}</Alert>
+    if (error) {
+      return <Alert variant="danger">{error}</Alert>
     }
   }
 
@@ -51,7 +60,7 @@ const GroupEdit = ({ match, fetchGroup, onEdit, errorMessage }) => {
         <input
           type="submit"
           value="Save"
-          onClick={e => onEdit(e, group)}/>
+          onClick={e => handleEditGroup(e, group)}/>
       </form>
     </div>
   );

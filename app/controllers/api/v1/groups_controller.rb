@@ -29,11 +29,12 @@ class Api::V1::GroupsController < ApplicationController
   def update
     group = Group.find(params[:id])
 
-    if current_user == group.user
-      group.update(group_params)
+    if !current_user == group.user
+      render json: { error: 'Unauthorized to delete this group' }, status: :unauthorized
+    elsif group.update(group_params)
       render json: GroupSerializer.new(group).to_serialized_json, status: :ok
     else
-      render json: { error: "Can't edit this group" }, status: :not_acceptable
+      render json: { error: group.errors.full_messages[0] }, status: :not_acceptable
     end
   end
 

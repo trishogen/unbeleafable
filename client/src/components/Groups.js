@@ -5,7 +5,7 @@ import Group from './Group';
 
 
 const Groups = ({ groupArr, onDelete }) => {
-
+  
   const groups = groupArr.map(g => (
     <Group
       key={g.id}

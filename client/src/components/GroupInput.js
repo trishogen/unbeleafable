@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
+import History from '../history'
 
 
-const GroupInput = ({ onSubmit, errorMessage }) => {
+const GroupInput = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState('');
 
   const group = () => {return {name: name, description: description}}
 
+  const handleSubmitNewGroup = async (e, group) => {
+    e.preventDefault();
+    const result = await onSubmit(group);
+    // redirect if no error, otherwise set error
+    (!result.error) ? History.push('/groups') : setError(result.error)
+  }
+
   const renderError = () => {
-    if (errorMessage) {
-      return <Alert variant="danger">{errorMessage}</Alert>
+    if (error) {
+      return <Alert variant="danger">{error}</Alert>
     }
   }
 
@@ -36,7 +45,7 @@ const GroupInput = ({ onSubmit, errorMessage }) => {
         <input
           type="submit"
           value="Create"
-          onClick={e => onSubmit(e, group())}/>
+          onClick={e => handleSubmitNewGroup(e, group())}/>
       </form>
     </div>
   );

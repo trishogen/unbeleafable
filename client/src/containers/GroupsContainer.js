@@ -11,25 +11,12 @@ import {
 import Groups from '../components/Groups';
 import GroupInput from '../components/GroupInput';
 import GroupEdit from '../components/GroupEdit';
-import History from '../history'
 
 
 class GroupsContainer extends Component {
 
   componentDidMount = () => {
     this.props.fetchGroups()
-  }
-
-  handleSubmitNewGroup = async (e, group) => {
-    e.preventDefault();
-    const result = await this.props.createNewGroup(group);
-    if (result) History.push('/groups');
-  }
-
-  handleEditGroup = async (e, group) => {
-    e.preventDefault();
-    const result = await this.props.onEdit(group);
-    if (result) History.push('/groups');
   }
 
   render() {
@@ -44,14 +31,12 @@ class GroupsContainer extends Component {
           )} />
         <Route path={`${this.props.match.path}/new`} render={(props) => (
             <GroupInput {...props}
-              onSubmit={this.handleSubmitNewGroup}
-              errorMessage={this.props.errorMessage}/>
+              onSubmit={this.props.createNewGroup} />
           )} />
         <Route path={`${this.props.match.path}/:id/edit`} render={(props) => (
             <GroupEdit {...props}
               fetchGroup={this.props.fetchGroup}
-              onEdit={this.handleEditGroup}
-              errorMessage={this.props.errorMessage}/>
+              onEdit={this.props.onEdit}/>
           )} />
       </div>
     )

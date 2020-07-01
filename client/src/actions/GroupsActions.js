@@ -17,11 +17,11 @@ export const fetchGroups = () => {
       if (status >= 400) {
         throw new Error(json.error);
       } else {
-        dispatch({ type: 'GET_GROUPS', groups: json });
+        return dispatch({ type: 'GET_GROUPS', groups: json });
       }
     })
     .catch(error => {
-      dispatch({ type: 'GROUPS_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
@@ -63,7 +63,7 @@ export const createNewGroup = (group) => {
       }
     })
     .catch(error => {
-      dispatch({ type: 'GROUPS_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
@@ -93,7 +93,7 @@ export const editGroup = (group) => {
       }
     })
     .catch(error => {
-      dispatch({ type: 'GROUPS_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
@@ -112,11 +112,11 @@ export const deleteGroup = (groupId) => {
         // convert to json here, because if there's no error it returns no content
         throw new Error(resp.json().error);
       } else {
-        dispatch({ type: 'DELETE_GROUP', groupId: groupId })
+        return dispatch({ type: 'DELETE_GROUP', groupId: groupId })
       }
     })
     .catch(error => {
-      dispatch({ type: 'GROUPS_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
