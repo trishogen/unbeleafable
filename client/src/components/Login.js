@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
+import History from '../history'
 
 
-const Login = ({ handleSubmit, errorMessage}) => {
+const Login = ({ handleSubmit }) => {
   // set state in a functional component
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const user = () => {return {user: {username: username, password: password}}}
 
   const renderError = () => {
-    if (errorMessage) {
-      return <Alert variant="danger">{errorMessage}</Alert>
+    if (error) {
+      return <Alert variant="danger">{error}</Alert>
     }
+  }
+
+  const onSubmit = async (e, user) => {
+    e.preventDefault();
+    const result = await handleSubmit(user);
+    // redirect if no error, otherwise set error
+    (!result.error) ? History.push('/') : setError(result.error)
   }
 
   return (
@@ -37,7 +46,7 @@ const Login = ({ handleSubmit, errorMessage}) => {
         <input
           type="submit"
           value="Log in"
-          onClick={e => handleSubmit(e, user())}/>
+          onClick={e => onSubmit(e, user())}/>
       </form>
     </div>
   );

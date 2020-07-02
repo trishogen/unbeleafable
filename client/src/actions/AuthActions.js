@@ -23,7 +23,7 @@ export const login = (user) => {
       }
     })
     .catch(error => {
-      dispatch({ type: 'AUTH_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
@@ -54,7 +54,7 @@ export const signup = (user) => {
       }
     })
     .catch(error => {
-      dispatch({ type: 'AUTH_ERROR', message: error.message });
+      return {error: error.message}
     })
   }
 }
