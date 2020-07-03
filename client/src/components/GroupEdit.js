@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { useParams } from 'react-router-dom';
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import History from '../history'
 
 
@@ -42,26 +45,35 @@ const GroupEdit = ({ match, fetchGroup, onEdit }) => {
     <div>
       <h1>Edit Group</h1>
       {renderError()}
-      <form>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={e => setName(e.target.value)}/>
-        <br />
-        Description:
-        <input
-          type="text"
-          name="description"
-          value={description}
-          onChange={e => setDescription(e.target.value)}/>
-        <br />
-        <input
-          type="submit"
-          value="Save"
-          onClick={e => handleEditGroup(e, group)}/>
-      </form>
+      <Form>
+        <Form.Group as={Form.Row} className="justify-content-center">
+          <Form.Label column sm={2}>Name</Form.Label>
+          <Col sm={2}>
+          <Form.Control
+            type="text"
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}/>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Form.Row} className="justify-content-center">
+          <Form.Label column sm={2}>Description</Form.Label>
+          <Col sm={2}>
+          <Form.Control
+            as="textarea"
+            name="description"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            rows="3"/>
+          </Col>
+        </Form.Group>
+
+        <Button variant="outline-secondary" size="sm" type="submit"
+          onClick={e => handleEditGroup(e, group)}>
+          Save
+        </Button>
+      </Form>
     </div>
   );
 };

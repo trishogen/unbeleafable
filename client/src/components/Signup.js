@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button';
 import History from '../history'
 
 
@@ -35,33 +38,48 @@ const Signup = ({ handleSubmit, errorMessage}) => {
     <div>
       <h1>Sign Up</h1>
       {renderError()}
-      <form>
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}/>
-        <br />
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}/>
-        <br />
-        Confirm Password:
-        <input
-          type="password"
-          name="passwordConfirmation"
-          value={passwordConfirmation}
-          onChange={e => setPasswordConfirmation(e.target.value)}/>
-        <br />
-        <input
-          type="submit"
-          value="Sign up"
-          onClick={e => onSubmit(e, user())}/>
-      </form>
+      <Form>
+        <Form.Group as={Form.Row} className="justify-content-center">
+          <Form.Label column sm={2}>Username</Form.Label>
+          <Col sm={2}>
+          <Form.Control
+            type="text"
+            name="username"
+            placeholder="username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}/>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Form.Row} className="justify-content-center">
+          <Form.Label column sm={2}>Password</Form.Label>
+          <Col sm={2}>
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}/>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Form.Row} className="justify-content-center">
+          <Form.Label column sm={2}>Password Confirmation</Form.Label>
+          <Col sm={2}>
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder="confirm your password"
+            value={passwordConfirmation}
+            onChange={e => setPasswordConfirmation(e.target.value)}/>
+          </Col>
+        </Form.Group>
+
+        <Button variant="outline-secondary" size="sm" type="submit"
+          onClick={e => onSubmit(e, user())}>
+          Sign up
+        </Button>
+      </Form>
     </div>
   );
 };
