@@ -26,8 +26,6 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="App">
-          <header className="App-header">
-          </header>
           <NavBarContainer />
           <Switch>
             <Route exact path="/">Home</Route>

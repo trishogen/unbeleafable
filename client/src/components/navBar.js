@@ -1,5 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 
 const NavBar = ({ loggedIn, logout }) => {
@@ -7,31 +10,39 @@ const NavBar = ({ loggedIn, logout }) => {
   const renderAuthButtons = () => {
     if (loggedIn) {
       return (
-        <div>
-          <Link to="/">Home</Link> |  <Link to="/groups">Groups</Link>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/groups">Groups</Nav.Link>
+          </Nav>
           <Button variant="outline-secondary" size="sm" onClick={logout}>
-            Log out
+              Log out
           </Button>
-        </div>
+        </Navbar.Collapse>
       )
     } else {
       return (
-        <div>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto" justify>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav>
           <Link to="/login">
             <Button variant="outline-secondary" size="sm">Log in</Button>
           </Link>
           <Link to="/signup">
             <Button variant="outline-secondary" size="sm">Sign up</Button>
           </Link>
-        </div>
+        </Navbar.Collapse>
       )
     }
   }
 
   return (
-    <div>
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand href="#home">Unbeleafable</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
       {renderAuthButtons()}
-    </div>
+    </Navbar>
   );
 };
 
