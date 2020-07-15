@@ -29,7 +29,7 @@ const Group = ({ name, id, description, userId, onDelete }) => {
 
   return (
     <div>
-      <h2> {name} </h2>
+      <h2> <Link className="link" to={`/groups/${id}`}>{name}</Link></h2>
       <p> {description} </p>
       {renderEdit()}
       {renderDelete()}

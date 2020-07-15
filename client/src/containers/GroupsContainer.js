@@ -11,6 +11,7 @@ import {
 import Groups from '../components/Groups';
 import GroupInput from '../components/GroupInput';
 import GroupEdit from '../components/GroupEdit';
+import GroupShow from '../components/GroupShow';
 
 
 class GroupsContainer extends Component {
@@ -32,6 +33,10 @@ class GroupsContainer extends Component {
         <Route path={`${this.props.match.path}/new`} render={(props) => (
             <GroupInput {...props}
               onSubmit={this.props.createNewGroup} />
+          )} />
+        <Route exact path={`${this.props.match.path}/:id`} render={(props) => (
+            <GroupShow {...props}
+              fetchGroup={this.props.fetchGroup}/>
           )} />
         <Route path={`${this.props.match.path}/:id/edit`} render={(props) => (
             <GroupEdit {...props}
