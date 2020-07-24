@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       post '/signup', to: 'users#create'
       post '/login', to: 'session#create'
 
-      resources :groups, only: [:index, :show, :create, :update, :destroy]
+      resources :groups, only: [:index, :show, :create, :update, :destroy] do
+        resources :comments, only: [:create]
+      end
+
     end
   end
 
