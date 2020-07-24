@@ -5,7 +5,6 @@ import NavBar from '../components/NavBar';
 import History from '../history'
 
 
-
 class NavBarContainer extends Component {
 
   handleLogout = () => {

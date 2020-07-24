@@ -8,6 +8,7 @@ import {
   editGroup,
   deleteGroup
 } from '../actions/GroupsActions';
+import CommentInput from '../components/CommentInput';
 import Groups from '../components/Groups';
 import GroupInput from '../components/GroupInput';
 import GroupEdit from '../components/GroupEdit';
@@ -38,10 +39,14 @@ class GroupsContainer extends Component {
             <GroupShow {...props}
               fetchGroup={this.props.fetchGroup}/>
           )} />
-        <Route path={`${this.props.match.path}/:id/edit`} render={(props) => (
+        <Route exact path={`${this.props.match.path}/:id/edit`} render={(props) => (
             <GroupEdit {...props}
               fetchGroup={this.props.fetchGroup}
               onEdit={this.props.onEdit}/>
+          )} />
+        <Route exact path={`${this.props.match.path}/:id/comments/new`}
+          render={(props) => (
+            <CommentInput {...props} />
           )} />
       </div>
     )

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Alert from 'react-bootstrap/Alert';
 import { useParams } from 'react-router-dom';
 import Comments from './Comments';
 
