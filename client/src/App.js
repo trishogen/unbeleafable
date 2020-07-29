@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import history from './history';
 import { setLoggedIn } from './actions/AuthActions';
 import GroupsContainer from './containers/GroupsContainer';
+import Home from './components/Home';
 import LoginContainer from './containers/LoginContainer';
 import NavBarContainer from './containers/NavBarContainer';
 import SignupContainer from './containers/SignupContainer';
@@ -28,7 +29,9 @@ class App extends Component {
         <div className="App">
           <NavBarContainer />
           <Switch>
-            <Route exact path="/">Home</Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
             <Route path="/login">
               <LoginContainer />
             </Route>
