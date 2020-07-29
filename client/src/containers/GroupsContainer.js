@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import {
   fetchGroups,
   fetchGroup,
@@ -10,8 +10,8 @@ import {
 } from '../actions/GroupsActions';
 import CommentInput from '../components/CommentInput';
 import Groups from '../components/Groups';
-import GroupInput from '../components/GroupInput';
 import GroupEdit from '../components/GroupEdit';
+import GroupInput from '../components/GroupInput';
 import GroupShow from '../components/GroupShow';
 
 
@@ -24,30 +24,37 @@ class GroupsContainer extends Component {
   render() {
     return (
       <div>
-        <Route exact path={`${this.props.match.path}`} render={(props) => (
-            <Groups {...props}
-              groupArr={this.props.groups}
-              onEdit={this.props.handleEditGroup}
-              onDelete={this.props.onDelete}
-              errorMessage={this.props.errorMessage}/>
-          )} />
-        <Route path={`${this.props.match.path}/new`} render={(props) => (
-            <GroupInput {...props}
-              onSubmit={this.props.createNewGroup} />
-          )} />
-        <Route exact path={`${this.props.match.path}/:id`} render={(props) => (
-            <GroupShow {...props}
-              fetchGroup={this.props.fetchGroup}/>
-          )} />
-        <Route exact path={`${this.props.match.path}/:id/edit`} render={(props) => (
-            <GroupEdit {...props}
+        <div>
+          <h1>Groups</h1>
+        </div>
+
+        <Switch>
+          <Route exact path={`/groups/new`} render={() => (
+            <GroupInput onSubmit={this.props.createNewGroup} />
+            )}
+          />
+        <Route exact path={`/groups/:id`} render={() => (
+            <GroupShow fetchGroup={this.props.fetchGroup}/>
+            )}
+          />
+        <Route exact path={`/groups/:id/edit`} render={() => (
+            <GroupEdit
               fetchGroup={this.props.fetchGroup}
               onEdit={this.props.onEdit}/>
-          )} />
-        <Route exact path={`${this.props.match.path}/:id/comments/new`}
-          render={(props) => (
-            <CommentInput {...props} />
-          )} />
+            )}
+          />
+        <Route exact path={`/groups/:id/comments/new`} render={() => (
+            <CommentInput />
+            )}
+          />
+        <Route path={`/groups`} render={() => (
+            <Groups
+              groupArr={this.props.groups}
+              onDelete={this.props.onDelete}
+            />
+            )}
+          />
+        </Switch>
       </div>
     )
   }

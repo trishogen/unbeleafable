@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import {
-  Router,
+  Router, // BrowserRouter ignores history prop
   Route,
   Switch
 } from 'react-router-dom';
@@ -29,9 +29,15 @@ class App extends Component {
           <NavBarContainer />
           <Switch>
             <Route exact path="/">Home</Route>
-            <Route path="/login" component={LoginContainer}></Route>
-            <Route path="/signup" component={SignupContainer}></Route>
-            <ProtectedRoute path="/groups" component={GroupsContainer} />
+            <Route path="/login">
+              <LoginContainer />
+            </Route>
+            <Route path="/signup">
+              <SignupContainer />
+            </Route>
+            <ProtectedRoute path="/groups">
+              <GroupsContainer />
+            </ProtectedRoute>
           </Switch>
         </div>
       </Router>

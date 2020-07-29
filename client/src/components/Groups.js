@@ -5,7 +5,7 @@ import Group from './Group';
 
 
 const Groups = ({ groupArr, onDelete }) => {
-  
+
   const groups = groupArr.map(g => (
     <Group
       key={g.id}
@@ -20,7 +20,6 @@ const Groups = ({ groupArr, onDelete }) => {
 
   return (
     <div>
-      <h1>Groups</h1>
       <Link to={'/groups/new'}>
         <Button variant="outline-secondary" size="sm"> Create new </Button>
       </Link>
