@@ -12,3 +12,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+.v-center {
+  margin: 0;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
