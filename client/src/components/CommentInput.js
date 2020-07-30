@@ -16,7 +16,7 @@ const CommentInput = ({ onSubmit }) => {
 
   const handleSubmitNewComment = async (e, comment) => {
     e.preventDefault();
-    const result = await onSubmit(comment);
+    const result = await onSubmit(id, comment);
     // redirect if no error, otherwise set error
     (!result.error) ? History.push(`/groups/${id}`) : setError(result.error)
   }

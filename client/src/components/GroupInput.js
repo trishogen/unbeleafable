@@ -28,7 +28,7 @@ const GroupInput = ({ onSubmit }) => {
 
   return (
     <div>
-      <h1>New Group</h1>
+      <h2>New Group</h2>
       {renderError()}
       <Form>
         <Form.Group as={Form.Row} className="justify-content-center">

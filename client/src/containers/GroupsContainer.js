@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
+import { createNewComment } from '../actions/CommentsActions';
 import {
   fetchGroups,
   fetchGroup,
@@ -25,7 +26,7 @@ class GroupsContainer extends Component {
     return (
       <div>
         <div>
-          <h1>Groups</h1>
+          <h1><Link className="link" to={'/groups'}>Groups</Link></h1>
         </div>
 
         <Switch>
@@ -34,24 +35,23 @@ class GroupsContainer extends Component {
             )}
           />
         <Route exact path={`/groups/:id`} render={() => (
-            <GroupShow fetchGroup={this.props.fetchGroup}/>
+            <GroupShow
+              fetchGroup={this.props.fetchGroup}
+              onDelete={this.props.onDelete} />
             )}
           />
         <Route exact path={`/groups/:id/edit`} render={() => (
             <GroupEdit
               fetchGroup={this.props.fetchGroup}
-              onEdit={this.props.onEdit}/>
+              onEdit={this.props.onEdit} />
             )}
           />
         <Route exact path={`/groups/:id/comments/new`} render={() => (
-            <CommentInput />
+            <CommentInput onSubmit={this.props.createNewComment} />
             )}
           />
         <Route path={`/groups`} render={() => (
-            <Groups
-              groupArr={this.props.groups}
-              onDelete={this.props.onDelete}
-            />
+            <Groups groupArr={this.props.groups} />
             )}
           />
         </Switch>
@@ -68,6 +68,7 @@ const mapDispatchToProps = dispatch => ({
   fetchGroups: () => dispatch(fetchGroups()),
   fetchGroup: groupId => dispatch(fetchGroup(groupId)),
   createNewGroup: group => dispatch(createNewGroup(group)),
+  createNewComment: (id, comment) => dispatch(createNewComment(id, comment)),
   onEdit: group => dispatch(editGroup(group)),
   onDelete: groupId => dispatch(deleteGroup(groupId))
 })

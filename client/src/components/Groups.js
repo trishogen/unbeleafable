@@ -4,16 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Group from './Group';
 
 
-const Groups = ({ groupArr, onDelete }) => {
+const Groups = ({ groupArr }) => {
 
   const groups = groupArr.map(g => (
     <Group
       key={g.id}
       id={g.id}
       name={g.name}
-      description={g.description}
-      userId={g.user_id}
-      onDelete={onDelete}>
+      description={g.description}>
     </Group>
     )
   );
