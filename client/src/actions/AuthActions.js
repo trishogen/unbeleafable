@@ -1,3 +1,6 @@
+import { parseResp } from './actionsHelpers';
+
+
 export const login = (user) => {
   return (dispatch) => {
     return fetch('http://localhost:3000/api/v1/login', {
@@ -7,12 +10,7 @@ export const login = (user) => {
       },
       body: JSON.stringify(user)
     })
-    .then(resp =>
-      (resp.json()).then(json => ({
-        status: resp.status,
-        json
-      })
-    ))
+    .then(resp => parseResp(resp))
     .then( ({status, json}) => {
       if (status >= 400) {
         throw new Error(json.error);
@@ -38,12 +36,7 @@ export const signup = (user) => {
       },
       body: JSON.stringify(user)
     })
-    .then(resp =>
-      (resp.json()).then(json => ({
-        status: resp.status,
-        json
-      })
-    ))
+    .then(resp => parseResp(resp))
     .then( ({status, json}) => {
       if (status >= 400) {
         throw new Error(json.error);

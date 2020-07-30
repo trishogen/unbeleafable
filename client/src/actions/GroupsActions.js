@@ -1,19 +1,14 @@
+import { parseResp, HEADERS } from './actionsHelpers';
+
+
 export const fetchGroups = () => {
   return (dispatch) => {
     fetch('http://localhost:3000/api/v1/groups', {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.token}`
-      }
+      headers: HEADERS
     })
-    .then(resp =>
-      (resp.json()).then(json => ({
-        status: resp.status,
-        json
-      })
-    ))
-    .then( ({status, json}) => {
+    .then(resp => parseResp(resp))
+    .then( ({status, json} ) => {
       if (status >= 400) {
         throw new Error(json.error);
       } else {
@@ -30,10 +25,7 @@ export const fetchGroup = (groupId) => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.token}`
-      }
+      headers: HEADERS
     })
     .then(resp => (resp.json()))
   }
@@ -43,18 +35,10 @@ export const createNewGroup = (group) => {
   return (dispatch) => {
     return fetch('http://localhost:3000/api/v1/groups', {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.token}`
-      },
+      headers: HEADERS,
       body: JSON.stringify(group)
     })
-    .then(resp =>
-      (resp.json()).then(json => ({
-        status: resp.status,
-        json
-      })
-    ))
+    .then(resp => parseResp(resp))
     .then( ({status, json}) => {
       if (status >= 400) {
         throw new Error(json.error);
@@ -73,18 +57,10 @@ export const editGroup = (group) => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/api/v1/groups/${group.id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.token}`
-      },
+      headers: HEADERS,
       body: JSON.stringify(group)
     })
-    .then(resp =>
-      (resp.json()).then(json => ({
-        status: resp.status,
-        json
-      })
-    ))
+    .then(resp => parseResp(resp))
     .then( ({status, json}) => {
       if (status >= 400) {
         throw new Error(json.error);
@@ -103,9 +79,7 @@ export const deleteGroup = (groupId) => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
       method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${localStorage.token}`
-      }
+      headers: HEADERS
     })
     .then(resp =>  {
       if (resp.status >= 400) {
