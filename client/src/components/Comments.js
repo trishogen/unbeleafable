@@ -9,16 +9,19 @@ const Comments = ({ commentArr }) => {
   const { id } = useParams();
 
   const comments = commentArr.map(c => (
-    <p key={c.id}>{c.text}</p>
+    <div>
+      <div>{c.posted_at} by {c.posted_by}</div>
+      <p>{c.text}</p>
+    </div>
     )
   );
 
   return (
     <div>
-      {comments}
       <Link to={`/groups/${id}/comments/new`}>
         <Button variant="outline-secondary" size="sm">Comment</Button>
       </Link>
+      <div>{comments}</div>
     </div>
   )
 }

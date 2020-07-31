@@ -7,7 +7,10 @@ class GroupCommentSerializer
   def to_serialized_json
     options = {
       :include => {
-        :comments => {},
+        :comments => {
+          methods: [:posted_by, :posted_at],
+          except: [:updated_at, :created_at]
+        },
       },
       :user => {:only => [:id]},
       except: [:updated_at, :created_at]
