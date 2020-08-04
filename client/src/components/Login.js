@@ -24,7 +24,7 @@ const Login = ({ handleSubmit }) => {
     e.preventDefault();
     const result = await handleSubmit(user);
     // redirect if no error, otherwise set error
-    (!result.error) ? History.push('/groups') : setError(result.error)
+    (!result.error) ? History.push('/') : setError(result.error)
   }
 
   return (
