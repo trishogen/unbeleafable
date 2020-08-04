@@ -10,7 +10,7 @@ class Api::V1::GroupsController < ApplicationController
     group = Group.find(params[:id])
 
     if group
-      render json: GroupCommentSerializer.new(group).to_serialized_json, status: :ok
+      render json: GroupSerializer.new(group).to_serialized_json, status: :ok
     else
       render json: { error: "Can't find this group" }, status: :not_found
     end

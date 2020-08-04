@@ -1,15 +1,16 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 const Comments = ({ commentArr }) => {
 
   const { id } = useParams();
 
-  const comments = commentArr.map(c => (
-    <div>
+  // filter down to the comments for this group
+  const filteredComments = commentArr.filter(c => c.group_id === parseInt(id));
+  const comments = filteredComments.map(c => (
+    <div key={c.id}>
       <div>{c.posted_at} by {c.posted_by}</div>
       <p>{c.text}</p>
     </div>

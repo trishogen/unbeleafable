@@ -1,5 +1,11 @@
 class Api::V1::CommentsController < ApplicationController
 
+  def index
+    comments = Comment.all
+
+    render json: CommentSerializer.new(comments).to_serialized_json
+  end
+
   def create
     group = Group.find(params[:group_id])
 
@@ -8,7 +14,7 @@ class Api::V1::CommentsController < ApplicationController
       comment.user = current_user
 
       if group.save
-        render json: GroupCommentSerializer.new(group).to_serialized_json, status: :ok
+        render json: CommentSerializer.new(comment).to_serialized_json, status: :ok
       else
         render json: { error: comment.errors.full_messages[0] }, status: :not_acceptable
       end

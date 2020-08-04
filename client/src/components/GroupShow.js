@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Comments from './Comments';
+import History from '../history'
 
 
-const GroupShow = ({ match, fetchGroup, onEdit, onDelete }) => {
+const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr }) => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [comments, setComments] = useState([]);
   const [userId, setUserId] = useState('');
+  const [error, setError] = useState('');
 
 
   useEffect( () => {
@@ -20,12 +22,17 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete }) => {
 
       setName(result.name);
       setDescription(result.description);
-      setComments(result.comments);
       setUserId(result.user_id);
     };
 
     fetchData();
   }, [fetchGroup, id]);
+
+  const renderError = () => {
+    if (error) {
+      return <Alert variant="danger">{error}</Alert>
+    }
+  }
 
   const renderEdit = () => {
     // only render edit button if the user created the group
@@ -42,20 +49,28 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete }) => {
     // only render delete button if the user created the group
     if (parseInt(localStorage.getItem('userId'), 10) === userId) {
       return (
-        <Button onClick={() => onDelete(id)} variant="outline-secondary" size="sm">
+        <Button onClick={e => handleDelete(e)} variant="outline-secondary" size="sm">
           Delete
         </Button>
       )
     }
   }
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const result = await onDelete(id);
+    // redirect if no error, otherwise set error
+    (!result.error) ? History.push('/groups') : setError(result.error)
+  }
+
   return (
     <div>
       <h2>{name}</h2>
       <p>{description}</p>
+      {renderError()}
       {renderEdit()}
       {renderDelete()}
-      <Comments commentArr={comments}/>
+      <Comments commentArr={commentArr}/>
     </div>
   );
 };

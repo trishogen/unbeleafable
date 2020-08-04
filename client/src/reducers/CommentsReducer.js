@@ -3,9 +3,10 @@ const commentsReducer = (
   action
 ) => {
   switch(action.type) {
+    case 'GET_COMMENTS':
+      return { ...state, comments: action.comments}
     case 'CREATE_COMMENT':
-      console.log(action.type);
-      return state;
+      return { ...state, comments: [...state.comments, action.comment ]}
     default:
       return state;
   }
