@@ -13,7 +13,7 @@ const groupsReducer = (
       });
       return { ...state, groups: editedGroups}
     case 'DELETE_GROUP':
-      const updatedGroups = state.groups.filter(g => g.id !== action.groupId);
+      const updatedGroups = state.groups.filter(g => g.id !== parseInt(action.groupId));
       return { ...state, groups: updatedGroups}
     default:
       return state;
