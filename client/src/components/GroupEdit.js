@@ -32,7 +32,7 @@ const GroupEdit = ({ match, fetchGroup, onEdit }) => {
     e.preventDefault();
     const result = await onEdit(group);
     // redirect if no error, otherwise set error
-    (!result.error) ? History.push('/groups') : setError(result.error)
+    (!result.error) ? History.push(`/groups/${id}`) : setError(result.error)
   }
 
   const renderError = () => {
