@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner'
 import Comments from './Comments';
 import History from '../history'
 
 
-const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr }) => {
+const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr,
+                  requesting }) => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
@@ -31,6 +33,12 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr }) => {
   const renderError = () => {
     if (error) {
       return <Alert variant="danger">{error}</Alert>
+    }
+  }
+
+  const renderLoading = () => {
+    if (requesting) {
+      return <Spinner animation="border" variant="light" />
     }
   }
 
@@ -67,6 +75,7 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr }) => {
     <div>
       <h2>{name}</h2>
       <p>{description}</p>
+      {renderLoading()}
       {renderError()}
       {renderEdit()}
       {renderDelete()}

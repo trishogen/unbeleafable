@@ -39,7 +39,9 @@ class GroupsContainer extends Component {
             <GroupShow
               fetchGroup={this.props.fetchGroup}
               onDelete={this.props.onDelete}
-              commentArr={this.props.comments}/>
+              commentArr={this.props.comments}
+              requesting={this.props.requesting}
+              />
             )}
           />
         <Route exact path={`/groups/:id/edit`} render={() => (
@@ -49,7 +51,9 @@ class GroupsContainer extends Component {
             )}
           />
         <Route exact path={`/groups/:id/comments/new`} render={() => (
-            <CommentInput onSubmit={this.props.createNewComment} />
+            <CommentInput
+              onSubmit={this.props.createNewComment}
+              requesting={this.props.requesting} />
             )}
           />
         <Route path={`/groups`} render={() => (
@@ -62,8 +66,8 @@ class GroupsContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ groups: { groups }, comments: { comments } }) => {
-  return { groups, comments }
+const mapStateToProps = ({ groups: { groups }, comments: { comments, requesting } }) => {
+  return { groups, comments, requesting }
 }
 
 const mapDispatchToProps = dispatch => ({

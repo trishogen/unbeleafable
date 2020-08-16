@@ -3,6 +3,7 @@ import { parseResp, HEADERS } from './actionsHelpers';
 
 export const fetchComments = () => {
   return (dispatch) => {
+    dispatch({ type: 'START_COMMENTS' });
     fetch('http://localhost:3000/api/v1/comments', {
       method: "GET",
       headers: HEADERS
@@ -23,6 +24,7 @@ export const fetchComments = () => {
 
 export const createNewComment = (groupId, comment) => {
   return (dispatch) => {
+    dispatch({ type: 'START_COMMENTS' });
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}/comments`, {
       method: "POST",
       headers: HEADERS,
