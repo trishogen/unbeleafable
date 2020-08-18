@@ -1,12 +1,12 @@
 const commentsReducer = (
-  state = { comments: [], requesting: false },
+  state = { comments: [], requestingComments: false },
   action
 ) => {
   switch(action.type) {
     case 'STARTING_COMMENTS':
-      return {...state, comments: [...state.comments], requesting: true}
+      return {...state, comments: [...state.comments], requestingComments: true}
     case 'GET_COMMENTS':
-      return {...state, comments: action.comments, requesting: false}
+      return {...state, comments: action.comments, requestingComments: false}
     case 'CREATE_COMMENT':
       return {
         ...state, comments:

@@ -8,7 +8,7 @@ import History from '../history'
 
 
 const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr,
-                  requesting }) => {
+                  requestingComments, requestingGroups }) => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
@@ -37,7 +37,7 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr,
   }
 
   const renderLoading = () => {
-    if (requesting) {
+    if (requestingComments || requestingGroups) {
       return <Spinner animation="border" variant="light" />
     }
   }

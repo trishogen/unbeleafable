@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom';
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner'
 import History from '../history'
 
 
-const GroupEdit = ({ match, fetchGroup, onEdit }) => {
+const GroupEdit = ({ match, fetchGroup, onEdit, requestingGroups }) => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
@@ -35,6 +36,12 @@ const GroupEdit = ({ match, fetchGroup, onEdit }) => {
     (!result.error) ? History.push(`/groups/${id}`) : setError(result.error)
   }
 
+  const renderLoading = () => {
+    if (requestingGroups) {
+      return <Spinner animation="border" variant="light" />
+    }
+  }
+
   const renderError = () => {
     if (error) {
       return <Alert variant="danger">{error}</Alert>
@@ -44,6 +51,7 @@ const GroupEdit = ({ match, fetchGroup, onEdit }) => {
   return (
     <div>
       <h1>Edit Group</h1>
+      {renderLoading()}
       {renderError()}
       <Form>
         <Form.Group as={Form.Row} className="justify-content-center">

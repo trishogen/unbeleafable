@@ -3,6 +3,7 @@ import { parseResp, HEADERS } from './actionsHelpers';
 
 export const fetchGroups = () => {
   return (dispatch) => {
+    dispatch({ type: 'START_GROUPS' });
     fetch('http://localhost:3000/api/v1/groups', {
       method: "GET",
       headers: HEADERS
@@ -23,6 +24,7 @@ export const fetchGroups = () => {
 
 export const fetchGroup = (groupId) => {
   return (dispatch) => {
+    dispatch({ type: 'START_GROUPS' });
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
       method: "GET",
       headers: HEADERS
@@ -33,6 +35,7 @@ export const fetchGroup = (groupId) => {
 
 export const createNewGroup = (group) => {
   return (dispatch) => {
+    dispatch({ type: 'START_GROUPS' });
     return fetch('http://localhost:3000/api/v1/groups', {
       method: "POST",
       headers: HEADERS,
@@ -55,6 +58,7 @@ export const createNewGroup = (group) => {
 
 export const editGroup = (group) => {
   return (dispatch) => {
+    dispatch({ type: 'START_GROUPS' });
     return fetch(`http://localhost:3000/api/v1/groups/${group.id}`, {
       method: "PUT",
       headers: HEADERS,
@@ -77,6 +81,7 @@ export const editGroup = (group) => {
 
 export const deleteGroup = (groupId) => {
   return (dispatch) => {
+    dispatch({ type: 'START_GROUPS' });
     return fetch(`http://localhost:3000/api/v1/groups/${groupId}`, {
       method: "DELETE",
       headers: HEADERS
