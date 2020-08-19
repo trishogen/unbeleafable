@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Switch, Route, useRouteMatch } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner'
 import Comments from './Comments';
 import History from '../history'
+import GroupEdit from './GroupEdit';
 
 
-const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr,
+const GroupShow = ({ fetchGroup, onEdit, onDelete, commentArr,
                   requestingComments, requestingGroups }) => {
 
+  let match = useRouteMatch();
   const { id } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -75,11 +77,22 @@ const GroupShow = ({ match, fetchGroup, onEdit, onDelete, commentArr,
     <div>
       <h2>{name}</h2>
       <p>{description}</p>
+      {console.log(match.url)}
       {renderLoading()}
       {renderError()}
       {renderEdit()}
       {renderDelete()}
       <Comments commentArr={commentArr}/>
+
+      <Switch>
+        <Route path={`${match.url}/edit`} render={() => (
+          <GroupEdit
+            fetchGroup={this.props.fetchGroup}
+            onEdit={this.props.onEdit}
+            requestingGroups={this.props.requestingGroups} />
+          )}
+        />
+      </Switch>
     </div>
   );
 };

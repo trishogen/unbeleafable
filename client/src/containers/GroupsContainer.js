@@ -11,7 +11,6 @@ import {
 } from '../actions/GroupsActions';
 import CommentInput from '../components/CommentInput';
 import Groups from '../components/Groups';
-import GroupEdit from '../components/GroupEdit';
 import GroupInput from '../components/GroupInput';
 import GroupShow from '../components/GroupShow';
 
@@ -42,14 +41,8 @@ class GroupsContainer extends Component {
               commentArr={this.props.comments}
               requestingGroups={this.props.requestingGroups}
               requestingComments={this.props.requestingComments}
-              />
-            )}
-          />
-        <Route exact path={`/groups/:id/edit`} render={() => (
-            <GroupEdit
-              fetchGroup={this.props.fetchGroup}
               onEdit={this.props.onEdit}
-              requestingGroups={this.props.requestingGroups} />
+              />
             )}
           />
         <Route exact path={`/groups/:id/comments/new`} render={() => (
